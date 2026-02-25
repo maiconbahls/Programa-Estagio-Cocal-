@@ -52,6 +52,7 @@ let chartFeedbackRem = null;
 let chartIndividualInstance = null;
 let db = INITIAL_DATA.ativos;
 let feedbackDB = []; // Base de feedbacks
+let dadosComplementares = []; // Dados complementares da nova aba
 
 // INICIALIZAÇÃO ULTRA-RÁPIDA
 document.addEventListener('DOMContentLoaded', () => {
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Carrega dados em background (sem await)
     carregarDadosExternos();
     carregarPersistencia();
+    carregarDadosComplementares();
 
     // Listeners
     const uploadEl = document.getElementById('uploadAtividadesCsv');
@@ -222,6 +224,53 @@ function navigateTo(id) {
     if (id === 'promovidos') renderizarPromovidos();
     if (id === 'indicadores') sincronizarFeedbacks();
     if (id === 'colaboradores') renderizarListaColaboradores();
+}
+
+// DADOS COMPLEMENTARES (Nova aba na planilha)
+async function carregarDadosComplementares() {
+    try {
+        const response = await fetch(CONFIG.API_URL, {
+            method: 'POST',
+            body: JSON.stringify({ action: 'getDadosComplementares' })
+        });
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            dadosComplementares = data;
+            mesclarDadosComplementares();
+            console.log('Dados complementares carregados:', dadosComplementares.length, 'registros');
+        }
+    } catch (err) {
+        console.warn('Dados complementares não disponíveis:', err.message);
+    }
+}
+
+function mesclarDadosComplementares() {
+    if (dadosComplementares.length === 0) return;
+
+    // Mescla com ativos
+    db.forEach((item, i) => {
+        const mat = String(mapearColuna(item, ['MATRICULA', 'ID']) || '').trim();
+        const complemento = dadosComplementares.find(c => {
+            const cMat = String(mapearColuna(c, ['MATRICULA', 'ID']) || '').trim();
+            return cMat === mat;
+        });
+        if (complemento) {
+            db[i] = { ...item, ...complemento, MATRICULA: item.MATRICULA, COLABORADOR: item.COLABORADOR };
+        }
+    });
+
+    // Mescla com promovidos
+    INITIAL_DATA.promovidos.forEach((item, i) => {
+        const mat = String(mapearColuna(item, ['MATRICULA', 'ID']) || '').trim();
+        const complemento = dadosComplementares.find(c => {
+            const cMat = String(mapearColuna(c, ['MATRICULA', 'ID']) || '').trim();
+            return cMat === mat;
+        });
+        if (complemento) {
+            INITIAL_DATA.promovidos[i] = { ...item, ...complemento, MATRICULA: item.MATRICULA, COLABORADOR: item.COLABORADOR };
+        }
+    });
 }
 
 // PERSISTÊNCIA DE DADOS
