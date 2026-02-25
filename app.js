@@ -13,30 +13,30 @@ const CONFIG = {
 // DADOS REAIS EXTRAÍDOS DA BASE (Mapeamento Inicial)
 const INITIAL_DATA = {
     ativos: [
-        { "MATRICULA": 3009000, "COLABORADOR": "BEATRIZ CARNELOS VIEIRA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483400, "COLABORADOR": "BERNARDO BRAGA BONFIM", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483100, "COLABORADOR": "DANIEL COSTA NICODEMO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3482800, "COLABORADOR": "DANIEL VIEIRA DA CUNHA", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3008500, "COLABORADOR": "DEBORAH RIVERO LACERDA ACIOLI", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483300, "COLABORADOR": "EDUARDO OLIVEIRA RIBEIRO DE MORAES", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483500, "COLABORADOR": "ENRICO PONTELLI CANDIDO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3008600, "COLABORADOR": "FELIPE SILVA DIAS", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3014900, "COLABORADOR": "GUILHERME JORGE DA SILVA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3010100, "COLABORADOR": "ISLAINE OLIVEIRA COSTA", "ADMISSAO": "2025-09-03", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483600, "COLABORADOR": "JACQUELINE AKINA NAKAGAWA", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3008700, "COLABORADOR": "JENYFFER SEVERINO DA SILVA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3013900, "COLABORADOR": "JONATHAN FREITAS DE SOUZA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3008900, "COLABORADOR": "JULIA PEREIRA GOMES", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483900, "COLABORADOR": "LEONARDO D AVANCO LOUREIRO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3014200, "COLABORADOR": "LEONARDO HENRIQUE DA CRUZ NOGUEIRA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483700, "COLABORADOR": "LUCAS MATHEUS DE OLIVEIRA MULATO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3483800, "COLABORADOR": "MARCELO JOSE BICUDO JUNIOR", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3014500, "COLABORADOR": "MATHEUS ACIOLI FELIX SILVA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3008400, "COLABORADOR": "PAULA FERNANDA FRANCELINO CARDOSO DOS SA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3013700, "COLABORADOR": "PAULO RICARDO DOS SANTOS", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3438900, "COLABORADOR": "PEDRO NATANIEL GABILON ARCE", "ADMISSAO": "2025-10-22", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3009200, "COLABORADOR": "STEFANI CAROLINE SOUZA DE OLIVEIRA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" },
-        { "MATRICULA": 3008800, "COLABORADOR": "TAMIRIS DOS SANTOS VENANCIO GOIS", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO" }
+        { "MATRICULA": 3009000, "COLABORADOR": "BEATRIZ CARNELOS VIEIRA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2025-12-15" },
+        { "MATRICULA": 3483400, "COLABORADOR": "BERNARDO BRAGA BONFIM", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3483100, "COLABORADOR": "DANIEL COSTA NICODEMO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3482800, "COLABORADOR": "DANIEL VIEIRA DA CUNHA", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3008500, "COLABORADOR": "DEBORAH RIVERO LACERDA ACIOLI", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2025-12-15" },
+        { "MATRICULA": 3483300, "COLABORADOR": "EDUARDO OLIVEIRA RIBEIRO DE MORAES", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3483500, "COLABORADOR": "ENRICO PONTELLI CANDIDO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3008600, "COLABORADOR": "FELIPE SILVA DIAS", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2025-12-15" },
+        { "MATRICULA": 3014900, "COLABORADOR": "GUILHERME JORGE DA SILVA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3010100, "COLABORADOR": "ISLAINE OLIVEIRA COSTA", "ADMISSAO": "2025-09-03", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3483600, "COLABORADOR": "JACQUELINE AKINA NAKAGAWA", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3008700, "COLABORADOR": "JENYFFER SEVERINO DA SILVA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2025-12-15" },
+        { "MATRICULA": 3013900, "COLABORADOR": "JONATHAN FREITAS DE SOUZA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3008900, "COLABORADOR": "JULIA PEREIRA GOMES", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3483900, "COLABORADOR": "LEONARDO D AVANCO LOUREIRO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3014200, "COLABORADOR": "LEONARDO HENRIQUE DA CRUZ NOGUEIRA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2027-12-15" },
+        { "MATRICULA": 3483700, "COLABORADOR": "LUCAS MATHEUS DE OLIVEIRA MULATO", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-06-15" },
+        { "MATRICULA": 3483800, "COLABORADOR": "MARCELO JOSE BICUDO JUNIOR", "ADMISSAO": "2026-01-21", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-06-15" },
+        { "MATRICULA": 3014500, "COLABORADOR": "MATHEUS ACIOLI FELIX SILVA", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-12-15" },
+        { "MATRICULA": 3008400, "COLABORADOR": "PAULA FERNANDA FRANCELINO CARDOSO DOS SA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-06-15" },
+        { "MATRICULA": 3013700, "COLABORADOR": "PAULO RICARDO DOS SANTOS", "ADMISSAO": "2025-09-17", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-06-15" },
+        { "MATRICULA": 3438900, "COLABORADOR": "PEDRO NATANIEL GABILON ARCE", "ADMISSAO": "2025-10-22", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-06-15" },
+        { "MATRICULA": 3009200, "COLABORADOR": "STEFANI CAROLINE SOUZA DE OLIVEIRA", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-06-15" },
+        { "MATRICULA": 3008800, "COLABORADOR": "TAMIRIS DOS SANTOS VENANCIO GOIS", "ADMISSAO": "2025-08-20", "CARGO": "ESTAGIARIO", "TERMINO_CONTRATO": "2026-06-15" }
     ],
     promovidos: [
         { "MATRICULA": 3008701, "COLABORADOR": "JENYFFER SEVERINO DA SILVA", "DATA_PROMOCAO": "2026-02-04", "CARGO": "JOVEM PROFISSIONAL" },
@@ -174,9 +174,26 @@ async function carregarDadosExternos() {
         const response = await fetch('base_data.json');
         if (response.ok) {
             const data = await response.json();
-            if (data.ativos) INITIAL_DATA.ativos = data.ativos;
-            if (data.promovidos) INITIAL_DATA.promovidos = data.promovidos;
-            console.log("Dados externos carregados com sucesso!");
+            if (data.ativos && data.ativos.length > 0) {
+                // Mescla dados externos com INITIAL_DATA preservando campos existentes
+                INITIAL_DATA.ativos = data.ativos.map(ext => {
+                    const existente = INITIAL_DATA.ativos.find(ini =>
+                        String(ini.MATRICULA) === String(ext.MATRICULA)
+                    );
+                    return existente ? { ...existente, ...ext } : ext;
+                });
+            }
+            if (data.promovidos && data.promovidos.length > 0) {
+                INITIAL_DATA.promovidos = data.promovidos.map(ext => {
+                    const existente = INITIAL_DATA.promovidos.find(ini =>
+                        String(ini.MATRICULA) === String(ext.MATRICULA)
+                    );
+                    return existente ? { ...existente, ...ext } : ext;
+                });
+            }
+            db = INITIAL_DATA.ativos;
+            sincronizarInterface();
+            console.log("Dados externos carregados e mesclados com sucesso!");
         }
     } catch (e) {
         console.warn("Aviso: base_data.json não encontrado ou inacessível (comum em acesso via file://). Usando dados internos.");
@@ -348,10 +365,21 @@ function mapearColuna(row, prefixos) {
         const match = keys.find(k => norm(k).includes(norm(pref)));
         if (match) return row[match];
     }
-    // Caso específico para a nova coluna "Temino contrato" que pode conter caracteres especiais
-    if (prefixos.includes('TERMINO')) {
-        const matchContrato = keys.find(k => norm(k).includes("TEMINOCONTRATO") || norm(k).includes("TERMINOCONTRATO"));
+    // Caso específico para a coluna "Temino contrato" / "TERMINO_CONTRATO"
+    if (prefixos.includes('TERMINO') || prefixos.includes('TÉRMINO') || prefixos.includes('FIM') || prefixos.includes('CONTRATO')) {
+        const matchContrato = keys.find(k => {
+            const nk = norm(k);
+            return nk.includes("TEMINOCONTRATO") || nk.includes("TERMINOCONTRATO") || nk === "TERMINOCONTRATO";
+        });
         if (matchContrato) return row[matchContrato];
+    }
+    // Caso para "DESCRICAO LOCAL" buscando por LOCAL ou SETOR
+    if (prefixos.includes('LOCAL') || prefixos.includes('SETOR')) {
+        const matchLocal = keys.find(k => {
+            const nk = norm(k);
+            return nk.includes("DESCRICAOLOCAL") || (nk.includes("LOCAL") && !nk.includes("UNIDADE"));
+        });
+        if (matchLocal) return row[matchLocal];
     }
     return '';
 }
@@ -690,20 +718,49 @@ function filtrarColaboradoresGeral(val) {
     renderizarListaColaboradores(val);
 }
 
+function calcularIdade(dataNascStr) {
+    if (!dataNascStr || dataNascStr === '-') return '-';
+    let d;
+    if (/^\d{2}\/\d{1,2}\/\d{4}/.test(dataNascStr)) {
+        const p = dataNascStr.split('/');
+        d = new Date(parseInt(p[2]), parseInt(p[1]) - 1, parseInt(p[0]));
+    } else {
+        d = new Date(dataNascStr);
+    }
+    if (isNaN(d.getTime())) return '-';
+    const hoje = new Date();
+    let idade = hoje.getFullYear() - d.getFullYear();
+    const m = hoje.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && hoje.getDate() < d.getDate())) idade--;
+    return idade + ' anos';
+}
+
 function abrirDashboardIndividual(colaborador) {
     const nome = mapearColuna(colaborador, ['COLABORADOR', 'NOME']) || 'COLABORADOR';
     const mat = mapearColuna(colaborador, ['MATRICULA', 'ID']) || '-';
     const cargo = mapearColuna(colaborador, ['CARGO', 'FUNCAO']) || 'ESTAGIÁRIO';
     const status = colaborador._tipo || (mapearColuna(colaborador, ['STATUS', 'SITUACAO']) || 'ATIVO');
     const inicio = formatarDataBR(mapearColuna(colaborador, ['ADMISSAO', 'INICIO']));
-    const termino = formatarDataBR(mapearColuna(colaborador, ['TERMINO', 'FIM', 'CONTRATO']));
+    const termino = formatarDataBR(mapearColuna(colaborador, ['TERMINO', 'TÉRMINO', 'FIM', 'CONTRATO']));
 
     // Dados Complementares (Mapeamento de novas colunas)
     const curso = mapearColuna(colaborador, ['CURSO', 'ESCOLARIDADE', 'FORMACAO']) || 'NÃO INFORMADO';
-    const bio = mapearColuna(colaborador, ['BIO', 'SOBRE', 'RESUMO', 'DESCRICAO']) || 'ESTAGIÁRIO ATIVO DO CICLO 2026. PARTICIPAÇÃO EM PROJETOS DA ÁREA.';
-    const nascimento = formatarDataBR(mapearColuna(colaborador, ['NASCIMENTO', 'DATA_NASC']));
+    const bio = mapearColuna(colaborador, ['BIO', 'SOBRE', 'RESUMO']) || 'ESTAGIÁRIO ATIVO DO CICLO 2026. PARTICIPAÇÃO EM PROJETOS DA ÁREA.';
+    const nascimentoRaw = mapearColuna(colaborador, ['NASCIMENTO', 'DATA_NASC', 'DATA NASCIMENTO']);
+    const nascimento = formatarDataBR(nascimentoRaw);
+    const idade = calcularIdade(nascimentoRaw || nascimento);
     const hobbies = mapearColuna(colaborador, ['HOBBIES', 'INTERESSES']) || '-';
     const foto = mapearColuna(colaborador, ['FOTO', 'URL_FOTO', 'IMAGEM']);
+
+    // Dados Organizacionais (da aba DADOS COMPLEMENTARES)
+    const diretoria = mapearColuna(colaborador, ['DIRETORIA']) || '-';
+    const unidade = mapearColuna(colaborador, ['UNIDADE']) || '-';
+    const localDesc = mapearColuna(colaborador, ['LOCAL', 'SETOR']) || '-';
+    const gestor = mapearColuna(colaborador, ['GESTOR']) || '-';
+    const emailGestor = mapearColuna(colaborador, ['E-MAIL GESTOR', 'EMAIL_GESTOR', 'EMAILGESTOR']) || '';
+    const cidade = mapearColuna(colaborador, ['CIDADE']) || '-';
+    const uf = mapearColuna(colaborador, ['UF', 'ESTADO']) || '';
+    const cidadeCompleta = uf ? `${cidade} - ${uf}` : cidade;
 
     // Contatos
     const email = mapearColuna(colaborador, ['EMAIL', 'CORREIO']) || '#';
@@ -715,13 +772,32 @@ function abrirDashboardIndividual(colaborador) {
     document.getElementById('indiv-matricula').innerText = mat;
     document.getElementById('indiv-cargo').innerText = cargo;
     document.getElementById('indiv-data-inicio').innerText = inicio;
-    document.getElementById('indiv-data-termino').innerText = termino;
+    document.getElementById('indiv-data-termino').innerText = termino || '-';
 
     // Preencher Dados Complementares
     document.getElementById('indiv-curso').innerText = curso;
     document.getElementById('indiv-bio').innerText = bio;
-    document.getElementById('indiv-nascimento').innerText = nascimento;
+    document.getElementById('indiv-nascimento').innerText = nascimento || '-';
     document.getElementById('indiv-hobbies').innerText = hobbies;
+
+    // Novos campos organizacionais
+    document.getElementById('indiv-diretoria').innerText = diretoria;
+    document.getElementById('indiv-unidade').innerText = unidade;
+    document.getElementById('indiv-local').innerText = localDesc;
+    document.getElementById('indiv-gestor').innerText = gestor;
+    document.getElementById('indiv-cidade').innerText = cidadeCompleta;
+    document.getElementById('indiv-idade').innerText = idade;
+
+    // Email gestor link
+    const gestorBtn = document.getElementById('indiv-gestor-email-btn');
+    if (gestorBtn) {
+        if (emailGestor && emailGestor.includes('@')) {
+            gestorBtn.href = `mailto:${emailGestor}`;
+            gestorBtn.classList.remove('hidden');
+        } else {
+            gestorBtn.classList.add('hidden');
+        }
+    }
 
     // Foto - Buscar localmente pela pasta fotos/ usando nome do colaborador
     const imgEl = document.getElementById('indiv-foto');
@@ -765,10 +841,10 @@ function abrirDashboardIndividual(colaborador) {
     badge.innerText = status;
     badge.className = `px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${status === 'ATIVO' ? 'bg-brand-accent/10 text-brand-accent' : 'bg-purple-100 text-purple-600'}`;
 
-    // Calcular tempo (simples)
+    // Calcular tempo de casa (meses)
     if (inicio !== '-' && (inicio.includes('/') || inicio.includes('-'))) {
         const partes = inicio.includes('/') ? inicio.split('/') : inicio.split('-');
-        const d1 = inicio.includes('/') ? new Date(partes[2], partes[1] - 1, partes[0]) : new Date(partes[0], partes[1] - 1, partes[2]);
+        const d1 = inicio.includes('/') ? new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0])) : new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
         const d2 = new Date();
         const meses = (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth());
         document.getElementById('indiv-tempo').innerText = Math.max(0, meses) + " Meses";

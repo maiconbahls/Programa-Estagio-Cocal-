@@ -47,14 +47,12 @@
         <div
             class="glass-card w-full max-w-md p-12 rounded-[3.5rem] relative z-10 bg-white/90 backdrop-blur-2xl shadow-2xl border-white/20">
             <div class="flex flex-col items-center gap-6 mb-10">
-                <div class="w-32 mb-4">
-                    <img src="logo.png" alt="Cocal Logo" class="w-full h-auto">
-                </div>
+
                 <div class="text-center">
                     <h1 class="text-2xl font-black text-brand-primary tracking-tighter leading-none">ACESSO RESTRITO
                     </h1>
                     <p class="text-[10px] font-black text-brand-accent tracking-[0.3em] mt-2 uppercase">Gestão de
-                        Talentos Cocal</p>
+                        Talentos</p>
                 </div>
             </div>
 
@@ -84,7 +82,7 @@
             </form>
 
             <p class="text-[9px] font-bold text-brand-gray text-center mt-10 opacity-50 uppercase tracking-widest">©
-                2026 Cocal - Todos os direitos reservados</p>
+                2026 - Todos os direitos reservados</p>
         </div>
     </div>
 
@@ -661,41 +659,124 @@
                                 <!-- Dados Complementares -->
                                 <div
                                     class="bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-100 flex flex-col min-h-[450px]">
-                                    <h3 class="font-black text-brand-primary text-xs tracking-[0.2em] uppercase mb-10">
+                                    <h3 class="font-black text-brand-primary text-xs tracking-[0.2em] uppercase mb-8">
                                         Informações Complementares</h3>
-                                    <div class="grid grid-cols-1 gap-8">
-                                        <div class="bg-brand-light/50 p-8 rounded-3xl border border-gray-50">
+                                    <div class="grid grid-cols-1 gap-5 flex-1 overflow-y-auto">
+
+                                        <!-- Lotação -->
+                                        <div
+                                            class="bg-gradient-to-r from-brand-primary/[0.03] to-transparent p-5 rounded-2xl border border-gray-50">
                                             <p
-                                                class="text-[9px] font-black text-brand-gray tracking-widest uppercase mb-4 opacity-60">
-                                                Escolaridade / Curso</p>
-                                            <p id="indiv-curso"
-                                                class="font-black text-sm text-brand-primary uppercase italic">CURSANDO
-                                                ENGENHARIA DE DADOS - USP</p>
+                                                class="text-[8px] font-black text-brand-accent tracking-[0.3em] uppercase mb-3 flex items-center gap-2">
+                                                <i class="ph-bold ph-buildings text-sm"></i> Lotação
+                                            </p>
+                                            <div class="grid grid-cols-3 gap-3">
+                                                <div>
+                                                    <p
+                                                        class="text-[7px] font-black text-brand-gray uppercase mb-0.5 opacity-60">
+                                                        Diretoria</p>
+                                                    <p id="indiv-diretoria"
+                                                        class="text-[10px] font-black text-brand-primary uppercase leading-tight">
+                                                        -
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <p
+                                                        class="text-[7px] font-black text-brand-gray uppercase mb-0.5 opacity-60">
+                                                        Unidade</p>
+                                                    <p id="indiv-unidade"
+                                                        class="text-[10px] font-black text-brand-primary uppercase leading-tight">
+                                                        -
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <p
+                                                        class="text-[7px] font-black text-brand-gray uppercase mb-0.5 opacity-60">
+                                                        Setor / Local</p>
+                                                    <p id="indiv-local"
+                                                        class="text-[10px] font-black text-brand-primary uppercase leading-tight">
+                                                        -
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="bg-brand-light/50 p-8 rounded-3xl border border-gray-50 flex-1">
-                                            <p
-                                                class="text-[9px] font-black text-brand-gray tracking-widest uppercase mb-4 opacity-60">
-                                                Sobre / Bio</p>
-                                            <p id="indiv-bio"
-                                                class="text-xs font-bold text-brand-gray leading-relaxed uppercase">
-                                                Colaborador proativo, focado em aprendizado de novas tecnologias e
-                                                integração com o time de processos.</p>
-                                        </div>
+
+                                        <!-- Gestor e Cidade -->
                                         <div class="grid grid-cols-2 gap-4">
-                                            <div class="p-6 bg-brand-light rounded-2xl border border-gray-50">
-                                                <p class="text-[8px] font-black text-brand-gray uppercase mb-1">
-                                                    Nascimento</p>
-                                                <p id="indiv-nascimento"
-                                                    class="text-[11px] font-bold text-brand-primary">15/05/2002</p>
-                                            </div>
-                                            <div class="p-6 bg-brand-light rounded-2xl border border-gray-50">
-                                                <p class="text-[8px] font-black text-brand-gray uppercase mb-1">Hobbies
+                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
+                                                <p
+                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60 flex items-center gap-1">
+                                                    <i class="ph-bold ph-user-circle-gear text-sm"></i> Gestor
+                                                    Responsável
                                                 </p>
-                                                <p id="indiv-hobbies"
-                                                    class="text-[11px] font-bold text-brand-primary uppercase">CICLISMO,
-                                                    GAME DEV</p>
+                                                <p id="indiv-gestor"
+                                                    class="text-[10px] font-black text-brand-primary uppercase">-</p>
+                                                <a id="indiv-gestor-email-btn" href="#"
+                                                    class="hidden text-[8px] font-bold text-brand-accent hover:underline mt-1 inline-flex items-center gap-1">
+                                                    <i class="ph-bold ph-envelope-simple text-xs"></i> Enviar e-mail
+                                                </a>
+                                            </div>
+                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
+                                                <p
+                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60 flex items-center gap-1">
+                                                    <i class="ph-bold ph-map-pin text-sm"></i> Cidade
+                                                </p>
+                                                <p id="indiv-cidade"
+                                                    class="text-[10px] font-black text-brand-primary uppercase">-</p>
                                             </div>
                                         </div>
+
+                                        <!-- Idade e Nascimento -->
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
+                                                <p
+                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60 flex items-center gap-1">
+                                                    <i class="ph-bold ph-cake text-sm"></i> Idade
+                                                </p>
+                                                <p id="indiv-idade" class="text-[11px] font-black text-brand-primary">-
+                                                </p>
+                                            </div>
+                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
+                                                <p
+                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60">
+                                                    <i class="ph-bold ph-calendar text-sm"></i> Nascimento
+                                                </p>
+                                                <p id="indiv-nascimento"
+                                                    class="text-[11px] font-bold text-brand-primary">-</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Curso -->
+                                        <div class="bg-brand-light/50 p-5 rounded-2xl border border-gray-50">
+                                            <p
+                                                class="text-[7px] font-black text-brand-gray tracking-widest uppercase mb-1.5 opacity-60 flex items-center gap-1">
+                                                <i class="ph-bold ph-graduation-cap text-sm"></i> Escolaridade / Curso
+                                            </p>
+                                            <p id="indiv-curso"
+                                                class="font-black text-[10px] text-brand-primary uppercase italic">-</p>
+                                        </div>
+
+                                        <!-- Bio -->
+                                        <div class="bg-brand-light/50 p-5 rounded-2xl border border-gray-50">
+                                            <p
+                                                class="text-[7px] font-black text-brand-gray tracking-widest uppercase mb-1.5 opacity-60 flex items-center gap-1">
+                                                <i class="ph-bold ph-article text-sm"></i> Sobre / Bio
+                                            </p>
+                                            <p id="indiv-bio"
+                                                class="text-[10px] font-bold text-brand-gray leading-relaxed uppercase">
+                                                -</p>
+                                        </div>
+
+                                        <!-- Hobbies -->
+                                        <div class="bg-brand-light/50 p-5 rounded-2xl border border-gray-50">
+                                            <p
+                                                class="text-[7px] font-black text-brand-gray tracking-widest uppercase mb-1.5 opacity-60 flex items-center gap-1">
+                                                <i class="ph-bold ph-game-controller text-sm"></i> Hobbies / Interesses
+                                            </p>
+                                            <p id="indiv-hobbies"
+                                                class="text-[10px] font-bold text-brand-primary uppercase">-</p>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
