@@ -278,12 +278,31 @@ function sincronizarInterface() {
     atualizarMetrics(db);
 }
 
+function formatarDataBR(dataStr) {
+    if (!dataStr || dataStr === '-') return '-';
+    // Se já estiver no formato DD/MM/AAAA, retorna como está
+    if (/^\d{2}\/\d{2}\/\d{4}/.test(dataStr)) return dataStr;
+
+    try {
+        const d = new Date(dataStr);
+        if (isNaN(d.getTime())) return dataStr;
+        return d.toLocaleDateString('pt-BR');
+    } catch (e) {
+        return dataStr;
+    }
+}
+
 function mapearColuna(row, prefixos) {
     const keys = Object.keys(row);
     const norm = (s) => String(s || '').toUpperCase().normalize("NFD").replace(/[^A-Z0-9]/g, "");
     for (let pref of prefixos) {
         const match = keys.find(k => norm(k).includes(norm(pref)));
         if (match) return row[match];
+    }
+    // Caso específico para a nova coluna "Temino contrato" que pode conter caracteres especiais
+    if (prefixos.includes('TERMINO')) {
+        const matchContrato = keys.find(k => norm(k).includes("TEMINOCONTRATO") || norm(k).includes("TERMINOCONTRATO"));
+        if (matchContrato) return row[matchContrato];
     }
     return '';
 }
@@ -299,8 +318,8 @@ function renderizarTabela(data) {
         const role = mapearColuna(row, ['CARGO', 'FUNCAO']) || 'ESTAGIARIO';
         const hours = mapearColuna(row, ['HORAS', 'TEMPO']) || '0';
         const status = String(mapearColuna(row, ['STATUS', 'SITUACAO']) || 'ATIVO').toUpperCase();
-        const inicio = mapearColuna(row, ['ADMISSAO', 'INICIO']) || '-';
-        const termino = mapearColuna(row, ['TERMINO', 'FIM', 'CONTRATO']) || '-';
+        const inicio = formatarDataBR(mapearColuna(row, ['ADMISSAO', 'INICIO']));
+        const termino = formatarDataBR(mapearColuna(row, ['TERMINO', 'FIM', 'CONTRATO']));
 
         const tr = document.createElement('tr');
         tr.className = "hover:bg-brand-light transition-all cursor-pointer group";
@@ -382,11 +401,11 @@ function verMais(ix) {
             </div>
             <div>
                 <p class="text-[9px] font-black text-brand-gray tracking-widest uppercase mb-2">Início Trilha</p>
-                <h4 class="font-bold text-sm uppercase">${mapearColuna(data, ['ADMISSAO', 'INICIO']) || '-'}</h4>
+                <h4 class="font-bold text-sm uppercase">${formatarDataBR(mapearColuna(data, ['ADMISSAO', 'INICIO']))}</h4>
             </div>
             <div>
                 <p class="text-[9px] font-black text-brand-gray tracking-widest uppercase mb-2">Término Contrato</p>
-                <h4 class="font-black text-sm uppercase">${mapearColuna(data, ['TERMINO', 'FIM', 'CONTRATO']) || '-'}</h4>
+                <h4 class="font-black text-sm uppercase">${formatarDataBR(mapearColuna(data, ['TERMINO', 'FIM', 'CONTRATO']))}</h4>
             </div>
             <div>
                 <p class="text-[9px] font-black text-brand-gray tracking-widest uppercase mb-2">Cargo Atual</p>
@@ -623,8 +642,8 @@ function abrirDashboardIndividual(colaborador) {
     const mat = mapearColuna(colaborador, ['MATRICULA', 'ID']) || '-';
     const cargo = mapearColuna(colaborador, ['CARGO', 'FUNCAO']) || 'ESTAGIÁRIO';
     const status = colaborador._tipo || (mapearColuna(colaborador, ['STATUS', 'SITUACAO']) || 'ATIVO');
-    const inicio = mapearColuna(colaborador, ['ADMISSAO', 'INICIO']) || '-';
-    const termino = mapearColuna(colaborador, ['TERMINO', 'FIM', 'CONTRATO']) || '-';
+    const inicio = formatarDataBR(mapearColuna(colaborador, ['ADMISSAO', 'INICIO']));
+    const termino = formatarDataBR(mapearColuna(colaborador, ['TERMINO', 'FIM', 'CONTRATO']));
 
     // Preencher Textos
     document.getElementById('indiv-nome').innerText = nome;
