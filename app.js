@@ -374,28 +374,43 @@ function formatarDataBR(dataStr) {
 }
 
 function mapearColuna(row, prefixos) {
+    if (!row) return '';
     const keys = Object.keys(row);
     const norm = (s) => String(s || '').toUpperCase().normalize("NFD").replace(/[^A-Z0-9]/g, "");
+
+    // 1. Tenta busca exata primeiro
     for (let pref of prefixos) {
-        const match = keys.find(k => norm(k).includes(norm(pref)));
+        const pNorm = norm(pref);
+        const match = keys.find(k => norm(k) === pNorm);
         if (match) return row[match];
     }
-    // Caso específico para a coluna "Temino contrato" / "TERMINO_CONTRATO"
-    if (prefixos.includes('TERMINO') || prefixos.includes('TÉRMINO') || prefixos.includes('FIM') || prefixos.includes('CONTRATO')) {
-        const matchContrato = keys.find(k => {
-            const nk = norm(k);
-            return nk.includes("TEMINOCONTRATO") || nk.includes("TERMINOCONTRATO") || nk === "TERMINOCONTRATO";
-        });
-        if (matchContrato) return row[matchContrato];
+
+    // 2. Tenta busca por "contém"
+    for (let pref of prefixos) {
+        const pNorm = norm(pref);
+        const match = keys.find(k => norm(k).includes(pNorm));
+        if (match) return row[match];
     }
-    // Caso para "DESCRICAO LOCAL" buscando por LOCAL ou SETOR
+
+    // Casos específicos baseados nos prints do usuário
     if (prefixos.includes('LOCAL') || prefixos.includes('SETOR')) {
-        const matchLocal = keys.find(k => {
-            const nk = norm(k);
-            return nk.includes("DESCRICAOLOCAL") || (nk.includes("LOCAL") && !nk.includes("UNIDADE"));
+        const m = keys.find(k => {
+            const n = norm(k);
+            return n.includes("DESCRICAOLOCAL") || n.includes("LOCAL") || n.includes("SETOR");
         });
-        if (matchLocal) return row[matchLocal];
+        if (m) return row[m];
     }
+
+    if (prefixos.includes('NASCIMENTO')) {
+        const m = keys.find(k => norm(k).includes("NASCIMENTO") || norm(k).includes("NASC"));
+        if (m) return row[m];
+    }
+
+    if (prefixos.includes('GESTOR')) {
+        const m = keys.find(k => norm(k).includes("GESTOR") || norm(k).includes("GESTAO"));
+        if (m && !norm(m).includes("DIRETORIA")) return row[m];
+    }
+
     return '';
 }
 
@@ -893,10 +908,20 @@ function abrirDashboardIndividual(colaborador) {
     // Calcular tempo de casa (meses)
     if (inicio !== '-' && (inicio.includes('/') || inicio.includes('-'))) {
         const partes = inicio.includes('/') ? inicio.split('/') : inicio.split('-');
-        const d1 = inicio.includes('/') ? new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0])) : new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
-        const d2 = new Date();
-        const meses = (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth());
-        document.getElementById('indiv-tempo').innerText = Math.max(0, meses) + " Meses";
+        let d1;
+        if (inicio.includes('/')) {
+            d1 = new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0]));
+        } else {
+            d1 = new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
+        }
+
+        if (!isNaN(d1.getTime())) {
+            const d2 = new Date();
+            const meses = (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth());
+            document.getElementById('indiv-tempo').innerText = Math.max(0, meses) + " Meses";
+        } else {
+            document.getElementById('indiv-tempo').innerText = "-";
+        }
     } else {
         document.getElementById('indiv-tempo').innerText = "-";
     }
