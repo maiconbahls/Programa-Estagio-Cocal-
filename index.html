@@ -1,4 +1,4 @@
-<!-- Build: 2026.02.25.1645 (Public Repo) -->
+<!-- Build: 2026.02.25.1648 (Premium UI & Data Fix) -->
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -549,303 +549,319 @@
                 </div>
 
                 <!-- TELA: DASHBOARD DO EMPREGADO (INDIVIDUAL) -->
-                <div id="view-dashboard-individual" class="page-section hidden-section page-transition text-left">
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-                        <!-- Coluna 1: Perfil Principal -->
-                        <div class="lg:col-span-1 space-y-8">
-                            <div
-                                class="bg-white p-10 rounded-[3.5rem] shadow-sm border border-gray-100 flex flex-col items-center text-center relative overflow-hidden group">
-                                <div class="absolute inset-0 bg-gradient-to-b from-brand-primary/[0.02] to-transparent">
-                                </div>
-
-                                <!-- Foto / Avatar -->
-                                <div class="relative mb-8 pt-4">
-                                    <div
-                                        class="w-40 h-40 rounded-[3rem] bg-brand-light overflow-hidden border-4 border-white shadow-2xl relative z-10 group-hover:scale-105 transition-transform duration-500">
-                                        <img id="indiv-foto" src="" alt="Foto"
-                                            class="w-full h-full object-cover hidden">
-                                        <div id="indiv-foto-placeholder"
-                                            class="w-full h-full flex items-center justify-center">
-                                            <i class="ph-fill ph-user text-6xl text-brand-primary opacity-20"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="absolute -bottom-2 -right-2 w-12 h-12 bg-white rounded-2xl shadow-xl flex items-center justify-center z-20 border border-gray-50">
-                                        <i class="ph-fill ph-check-circle text-brand-accent text-2xl"></i>
-                                    </div>
-                                </div>
-
-                                <div class="relative z-10 w-full mb-6">
-                                    <span id="indiv-status-badge"
-                                        class="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest bg-brand-accent/10 text-brand-accent mb-4 inline-block">ATIVO</span>
-                                    <h1 id="indiv-nome"
-                                        class="text-2xl font-black text-brand-primary uppercase tracking-tight mb-1">
-                                        NOME DO COLABORADOR</h1>
-                                    <p id="indiv-cargo"
-                                        class="text-brand-gray text-[10px] font-black tracking-[0.2em] uppercase">
-                                        ESTAGIÁRIO DE DADOS</p>
-                                </div>
-
-                                <!-- Grid de Contatos -->
-                                <div class="grid grid-cols-3 gap-3 w-full border-t border-gray-50 pt-8">
-                                    <a id="indiv-email-btn" href="#" target="_blank"
-                                        class="h-12 bg-brand-light rounded-2xl flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
-                                        <i class="ph-bold ph-envelope text-lg"></i>
-                                    </a>
-                                    <a id="indiv-whatsapp-btn" href="#" target="_blank"
-                                        class="h-12 bg-brand-light rounded-2xl flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
-                                        <i class="ph-bold ph-whatsapp-logo text-lg"></i>
-                                    </a>
-                                    <a id="indiv-linkedin-btn" href="#" target="_blank"
-                                        class="h-12 bg-brand-light rounded-2xl flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
-                                        <i class="ph-bold ph-linkedin-logo text-lg"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!-- Card de Info Rápida -->
-                            <div
-                                class="bg-brand-primary p-10 rounded-[3rem] text-white shadow-2xl shadow-brand-primary/20 relative overflow-hidden">
-                                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white opacity-5 rounded-full">
-                                </div>
-                                <h4
-                                    class="text-[10px] font-black tracking-[0.3em] uppercase opacity-60 mb-8 flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span> Detalhes
-                                    Administrativos
-                                </h4>
-                                <div class="space-y-6">
-                                    <div>
-                                        <p class="text-[9px] font-bold opacity-40 uppercase tracking-widest mb-1">
-                                            Matrícula</p>
-                                        <p id="indiv-matricula" class="font-black text-sm uppercase tracking-wider">
-                                            3009000</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-[9px] font-bold opacity-40 uppercase tracking-widest mb-1">Início
-                                            Trilha</p>
-                                        <p id="indiv-data-inicio" class="font-black text-sm uppercase tracking-wider">
-                                            20/08/2025</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-[9px] font-bold opacity-40 uppercase tracking-widest mb-1">
-                                            Término Contrato</p>
-                                        <p id="indiv-data-termino" class="font-black text-sm uppercase tracking-wider">
-                                            20/08/2026</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-[9px] font-bold opacity-40 uppercase tracking-widest mb-1">Tempo
-                                            de Casa</p>
-                                        <p id="indiv-tempo"
-                                            class="font-black text-xl text-brand-accent uppercase tracking-wider italic">
-                                            6 Meses</p>
-                                    </div>
-                                </div>
+                <div id="view-dashboard-individual" class="page-section hidden-section page-transition text-left px-4">
+                    <div class="max-w-[1600px] mx-auto">
+                        <!-- Header / Back Button -->
+                        <div class="flex items-center justify-between mb-8">
+                            <button onclick="navigateTo('colaboradores')"
+                                class="flex items-center gap-3 bg-white px-6 py-3 rounded-2xl shadow-sm border border-gray-100 hover:bg-brand-light transition-all text-brand-primary font-black text-[10px] uppercase tracking-widest group">
+                                <i class="ph-bold ph-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                                Voltar para Lista
+                            </button>
+                            <div class="flex gap-4">
+                                <button onclick="window.print()"
+                                    class="w-12 h-12 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+                                    <i class="ph-bold ph-printer text-lg"></i>
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Coluna 2 e 3: Miolo (Gráfico e Dados Complementares) -->
-                        <div class="lg:col-span-3 space-y-8">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            <!-- Sidebar Esquerda: Perfil Compacto -->
+                            <div class="lg:col-span-3 space-y-8">
+                                <!-- Card Foto -->
+                                <div
+                                    class="bg-white rounded-[3.5rem] p-10 shadow-sm border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/5 rounded-bl-[5rem]">
+                                    </div>
+
+                                    <div class="relative mb-8 pt-4">
+                                        <div
+                                            class="w-48 h-48 rounded-[3.5rem] bg-brand-light overflow-hidden border-4 border-white shadow-2xl relative z-10">
+                                            <img id="indiv-foto" src="" alt="Foto"
+                                                class="w-full h-full object-cover hidden">
+                                            <div id="indiv-foto-placeholder"
+                                                class="w-full h-full flex items-center justify-center">
+                                                <i class="ph-fill ph-user text-7xl text-brand-primary opacity-20"></i>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="absolute -bottom-2 -right-2 w-14 h-14 bg-brand-accent rounded-3xl shadow-xl flex items-center justify-center z-20 border-4 border-white">
+                                            <i class="ph-fill ph-check-circle text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="relative z-10 w-full mb-8">
+                                        <span id="indiv-status-badge"
+                                            class="px-5 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.2em] bg-brand-accent/10 text-brand-accent mb-4 inline-block">ATIVO</span>
+                                        <h1 id="indiv-nome"
+                                            class="text-3xl font-black text-brand-primary uppercase tracking-tight leading-tight mb-2">
+                                            NOME DO COLABORADOR</h1>
+                                        <p id="indiv-cargo"
+                                            class="text-brand-gray text-[10px] font-black tracking-[0.3em] uppercase opacity-60">
+                                            ESTAGIÁRIO</p>
+                                    </div>
+
+                                    <!-- Ações Rápidas -->
+                                    <div class="flex gap-3 w-full border-t border-gray-100 pt-8">
+                                        <a id="indiv-email-btn" href="#" target="_blank"
+                                            class="flex-1 h-14 bg-brand-light rounded-2xl flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all shadow-sm">
+                                            <i class="ph-bold ph-envelope text-xl"></i>
+                                        </a>
+                                        <a id="indiv-whatsapp-btn" href="#" target="_blank"
+                                            class="flex-1 h-14 bg-brand-light rounded-2xl flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all shadow-sm">
+                                            <i class="ph-bold ph-whatsapp-logo text-xl"></i>
+                                        </a>
+                                        <a id="indiv-linkedin-btn" href="#" target="_blank"
+                                            class="flex-1 h-14 bg-brand-light rounded-2xl flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all shadow-sm">
+                                            <i class="ph-bold ph-linkedin-logo text-xl"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Card Administrativo -->
+                                <div
+                                    class="bg-brand-primary text-white p-10 rounded-[3.5rem] shadow-xl relative overflow-hidden">
+                                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/5 rounded-full"></div>
+                                    <h3 class="text-[10px] font-black uppercase tracking-[0.3em] mb-10 opacity-40">Dados
+                                        Administrativos</h3>
+
+                                    <div class="space-y-8 relative z-10">
+                                        <div class="flex flex-col gap-1">
+                                            <p class="text-[8px] font-black uppercase tracking-widest opacity-40">
+                                                Matrícula</p>
+                                            <p id="indiv-matricula"
+                                                class="text-base font-black tracking-widest font-mono">0000000</p>
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <p class="text-[8px] font-black uppercase tracking-widest opacity-40">Início
+                                                Trilha</p>
+                                            <p id="indiv-data-inicio" class="text-base font-black uppercase">--/--/----
+                                            </p>
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <p class="text-[8px] font-black uppercase tracking-widest opacity-40">
+                                                Término Contrato</p>
+                                            <p id="indiv-data-termino" class="text-base font-black uppercase">--/--/----
+                                            </p>
+                                        </div>
+                                        <div class="bg-white/10 p-6 rounded-3xl border border-white/10">
+                                            <p class="text-[8px] font-black uppercase tracking-widest opacity-60 mb-1">
+                                                Tempo de Casa</p>
+                                            <p id="indiv-tempo" class="text-2xl font-black text-brand-accent">0 MESES
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Coluna Central: Evolução e Info Complementar -->
+                            <div class="lg:col-span-6 space-y-8">
                                 <!-- Gráfico de Evolução -->
                                 <div
-                                    class="bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-100 flex flex-col min-h-[450px]">
+                                    class="bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-100 flex flex-col h-[500px]">
                                     <div class="flex justify-between items-center mb-10">
-                                        <div class="flex flex-col gap-1">
-                                            <h3
-                                                class="font-black text-brand-primary text-xs tracking-[0.2em] uppercase">
-                                                Evolução do Estagiário</h3>
-                                            <p class="text-[9px] font-bold text-brand-gray uppercase">Nível de entrega e
-                                                competências</p>
+                                        <div>
+                                            <h3 class="text-xl font-black text-brand-primary uppercase tracking-tight">
+                                                Evolução de Competências</h3>
+                                            <p
+                                                class="text-[9px] font-black text-brand-gray tracking-[0.2em] uppercase opacity-40">
+                                                Acompanhamento contínuo dos feedbacks</p>
                                         </div>
-                                        <button onclick="navigateTo('colaboradores')"
-                                            class="w-10 h-10 bg-brand-light rounded-xl flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
-                                            <i class="ph-bold ph-arrow-left"></i>
-                                        </button>
+                                        <i class="ph-bold ph-chart-line-up text-3xl text-brand-accent"></i>
                                     </div>
                                     <div class="flex-1 relative">
                                         <canvas id="chartEvolucaoIndividual"></canvas>
                                     </div>
                                 </div>
 
-                                <!-- Dados Complementares -->
-                                <div
-                                    class="bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-100 flex flex-col min-h-[450px]">
-                                    <h3 class="font-black text-brand-primary text-xs tracking-[0.2em] uppercase mb-8">
-                                        Informações Complementares</h3>
-                                    <div class="grid grid-cols-1 gap-5 flex-1 overflow-y-auto">
-
-                                        <!-- Lotação -->
-                                        <div
-                                            class="bg-gradient-to-r from-brand-primary/[0.03] to-transparent p-5 rounded-2xl border border-gray-50">
-                                            <p
-                                                class="text-[8px] font-black text-brand-accent tracking-[0.3em] uppercase mb-3 flex items-center gap-2">
-                                                <i class="ph-bold ph-buildings text-sm"></i> Lotação
-                                            </p>
-                                            <div class="grid grid-cols-3 gap-3">
-                                                <div>
-                                                    <p
-                                                        class="text-[7px] font-black text-brand-gray uppercase mb-0.5 opacity-60">
-                                                        Diretoria</p>
-                                                    <p id="indiv-diretoria"
-                                                        class="text-[10px] font-black text-brand-primary uppercase leading-tight">
-                                                        -
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <p
-                                                        class="text-[7px] font-black text-brand-gray uppercase mb-0.5 opacity-60">
-                                                        Unidade</p>
-                                                    <p id="indiv-unidade"
-                                                        class="text-[10px] font-black text-brand-primary uppercase leading-tight">
-                                                        -
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <p
-                                                        class="text-[7px] font-black text-brand-gray uppercase mb-0.5 opacity-60">
-                                                        Setor / Local</p>
-                                                    <p id="indiv-local"
-                                                        class="text-[10px] font-black text-brand-primary uppercase leading-tight">
-                                                        -
-                                                    </p>
-                                                </div>
+                                <!-- Grid de Informações Complementares -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <!-- Lotação -->
+                                    <div
+                                        class="bg-white p-10 rounded-[3.5rem] shadow-sm border border-gray-100 md:col-span-2">
+                                        <div class="flex items-center gap-4 mb-10">
+                                            <div
+                                                class="w-12 h-12 bg-brand-light rounded-2xl flex items-center justify-center text-brand-primary">
+                                                <i class="ph-bold ph-buildings text-xl"></i>
+                                            </div>
+                                            <h3
+                                                class="text-[11px] font-black uppercase tracking-[0.3em] text-brand-primary">
+                                                Lotação & Estrutura</h3>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                                            <div class="space-y-1">
+                                                <p
+                                                    class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                    Diretoria</p>
+                                                <p id="indiv-diretoria"
+                                                    class="text-[11px] font-black text-brand-dark uppercase leading-tight">
+                                                    -</p>
+                                            </div>
+                                            <div class="space-y-1">
+                                                <p
+                                                    class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                    Unidade</p>
+                                                <p id="indiv-unidade"
+                                                    class="text-[11px] font-black text-brand-dark uppercase leading-tight">
+                                                    -</p>
+                                            </div>
+                                            <div class="space-y-1">
+                                                <p
+                                                    class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                    Setor / Local</p>
+                                                <p id="indiv-local"
+                                                    class="text-[11px] font-black text-brand-dark uppercase leading-tight">
+                                                    -</p>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <!-- Gestor e Cidade -->
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
-                                                <p
-                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60 flex items-center gap-1">
-                                                    <i class="ph-bold ph-user-circle-gear text-sm"></i> Gestor
-                                                    Responsável
-                                                </p>
-                                                <p id="indiv-gestor"
-                                                    class="text-[10px] font-black text-brand-primary uppercase">-</p>
-                                                <a id="indiv-gestor-email-btn" href="#"
-                                                    class="hidden text-[8px] font-bold text-brand-accent hover:underline mt-1 inline-flex items-center gap-1">
-                                                    <i class="ph-bold ph-envelope-simple text-xs"></i> Enviar e-mail
+                                    <!-- Gestão e Local -->
+                                    <div
+                                        class="bg-white p-10 rounded-[3.5rem] shadow-sm border border-gray-100 flex flex-col gap-8">
+                                        <div class="flex items-center gap-4">
+                                            <div
+                                                class="w-10 h-10 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent">
+                                                <i class="ph-bold ph-identification-card text-lg"></i>
+                                            </div>
+                                            <h3
+                                                class="text-[10px] font-black uppercase tracking-widest text-brand-primary">
+                                                Gestão Canal</h3>
+                                        </div>
+                                        <div class="space-y-6">
+                                            <div class="flex items-center justify-between">
+                                                <div class="space-y-1">
+                                                    <p
+                                                        class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                        Gestor Responsável</p>
+                                                    <p id="indiv-gestor"
+                                                        class="text-[11px] font-black text-brand-dark uppercase">-</p>
+                                                </div>
+                                                <a id="indiv-gestor-email-btn" href="#" target="_blank"
+                                                    class="w-8 h-8 bg-brand-light rounded-lg flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-all hidden">
+                                                    <i class="ph-bold ph-envelope-simple"></i>
                                                 </a>
                                             </div>
-                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
+                                            <div class="space-y-1">
                                                 <p
-                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60 flex items-center gap-1">
-                                                    <i class="ph-bold ph-map-pin text-sm"></i> Cidade
-                                                </p>
+                                                    class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                    Cidade de Atuação</p>
                                                 <p id="indiv-cidade"
-                                                    class="text-[10px] font-black text-brand-primary uppercase">-</p>
+                                                    class="text-[11px] font-black text-brand-dark uppercase">-</p>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <!-- Idade e Nascimento -->
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
-                                                <p
-                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60 flex items-center gap-1">
-                                                    <i class="ph-bold ph-cake text-sm"></i> Idade
-                                                </p>
-                                                <p id="indiv-idade" class="text-[11px] font-black text-brand-primary">-
-                                                </p>
+                                    <!-- Pessoal -->
+                                    <div
+                                        class="bg-white p-10 rounded-[3.5rem] shadow-sm border border-gray-100 flex flex-col gap-8">
+                                        <div class="flex items-center gap-4">
+                                            <div
+                                                class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
+                                                <i class="ph-bold ph-user-circle text-lg"></i>
                                             </div>
-                                            <div class="p-5 bg-brand-light rounded-2xl border border-gray-50">
+                                            <h3
+                                                class="text-[10px] font-black uppercase tracking-widest text-brand-primary">
+                                                Perfil Pessoal</h3>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-6">
+                                            <div class="space-y-1">
                                                 <p
-                                                    class="text-[7px] font-black text-brand-gray uppercase mb-1.5 opacity-60">
-                                                    <i class="ph-bold ph-calendar text-sm"></i> Nascimento
-                                                </p>
+                                                    class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                    Idade</p>
+                                                <p id="indiv-idade"
+                                                    class="text-[11px] font-black text-brand-dark uppercase">-</p>
+                                            </div>
+                                            <div class="space-y-1">
+                                                <p
+                                                    class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                    Nascimento</p>
                                                 <p id="indiv-nascimento"
-                                                    class="text-[11px] font-bold text-brand-primary">-</p>
+                                                    class="text-[11px] font-black text-brand-dark uppercase">-</p>
+                                            </div>
+                                            <div class="col-span-2 space-y-1">
+                                                <p
+                                                    class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40">
+                                                    Escolaridade / Curso</p>
+                                                <p id="indiv-curso"
+                                                    class="text-[11px] font-black text-brand-accent uppercase leading-tight italic overflow-hidden">
+                                                    NÃO INFORMADO</p>
                                             </div>
                                         </div>
-
-                                        <!-- Curso -->
-                                        <div class="bg-brand-light/50 p-5 rounded-2xl border border-gray-50">
-                                            <p
-                                                class="text-[7px] font-black text-brand-gray tracking-widest uppercase mb-1.5 opacity-60 flex items-center gap-1">
-                                                <i class="ph-bold ph-graduation-cap text-sm"></i> Escolaridade / Curso
-                                            </p>
-                                            <p id="indiv-curso"
-                                                class="font-black text-[10px] text-brand-primary uppercase italic">-</p>
-                                        </div>
-
-                                        <!-- Bio -->
-                                        <div class="bg-brand-light/50 p-5 rounded-2xl border border-gray-50">
-                                            <p
-                                                class="text-[7px] font-black text-brand-gray tracking-widest uppercase mb-1.5 opacity-60 flex items-center gap-1">
-                                                <i class="ph-bold ph-article text-sm"></i> Sobre / Bio
-                                            </p>
-                                            <p id="indiv-bio"
-                                                class="text-[10px] font-bold text-brand-gray leading-relaxed uppercase">
-                                                -</p>
-                                        </div>
-
-                                        <!-- Hobbies -->
-                                        <div class="bg-brand-light/50 p-5 rounded-2xl border border-gray-50">
-                                            <p
-                                                class="text-[7px] font-black text-brand-gray tracking-widest uppercase mb-1.5 opacity-60 flex items-center gap-1">
-                                                <i class="ph-bold ph-game-controller text-sm"></i> Hobbies / Interesses
-                                            </p>
-                                            <p id="indiv-hobbies"
-                                                class="text-[10px] font-bold text-brand-primary uppercase">-</p>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Feedbacks -->
-                            <div class="bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-100 min-h-[400px]">
-                                <div class="flex justify-between items-center mb-10">
-                                    <div class="flex flex-col gap-1">
+                            <!-- Coluna Direita: Feedback History -->
+                            <div class="lg:col-span-3 space-y-8">
+                                <div
+                                    class="bg-white p-10 rounded-[3.5rem] shadow-sm border border-gray-100 min-h-[500px] flex flex-col">
+                                    <div class="flex items-center justify-between mb-8">
                                         <h3
-                                            class="text-xl font-black text-brand-primary uppercase tracking-tight italic">
-                                            Feedbacks Recebidos</h3>
-                                        <p class="text-[9px] font-black text-brand-accent tracking-[0.2em] uppercase">
-                                            Histórico de Performance</p>
+                                            class="text-[11px] font-black uppercase tracking-[0.3em] text-brand-primary">
+                                            Histórico</h3>
+                                        <div
+                                            class="px-3 py-1 bg-brand-light rounded-full text-[9px] font-black text-brand-primary">
+                                            FEEDBACKS</div>
                                     </div>
-                                    <div
-                                        class="w-12 h-12 bg-brand-light rounded-2xl flex items-center justify-center text-brand-accent">
-                                        <i class="ph-bold ph-chat-centered-dots text-2xl"></i>
+                                    <div id="indiv-feedbacks-lista"
+                                        class="space-y-6 flex-1 overflow-y-auto max-h-[700px] pr-2 custom-scrollbar">
+                                        <!-- Preenchido via app.js -->
                                     </div>
                                 </div>
-                                <div id="indiv-feedbacks-lista"
-                                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <!-- Feedbacks listados aqui -->
+
+                                <div class="bg-brand-light/30 p-10 rounded-[3.5rem] border border-gray-100">
+                                    <h4
+                                        class="text-[9px] font-black uppercase tracking-widest text-brand-gray opacity-60 mb-4">
+                                        Bio / Resumo Profissional</h4>
+                                    <p id="indiv-bio"
+                                        class="text-[11px] font-medium leading-[1.8] text-brand-gray uppercase italic">
+                                        Estagiário ativo do ciclo 2026. Participação em projetos da área.</p>
+                                </div>
+                                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50">
+                                    <p
+                                        class="text-[8px] font-black uppercase tracking-widest text-brand-gray opacity-40 mb-3 text-center">
+                                        Interesses / Hobbies</p>
+                                    <p id="indiv-hobbies" class="text-[10px] font-bold text-brand-primary text-center">-
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </main>
+    </div>
 
-        <!-- MODAL DE DETALHES -->
-        <div id="modal-detalhes" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-8 modal-bg">
-            <div
-                class="bg-white w-full max-w-2xl rounded-[4rem] shadow-2xl overflow-hidden page-transition border border-white/20">
-                <div class="p-12 border-b border-gray-50 flex justify-between items-center bg-brand-light/40 text-left">
-                    <div class="flex flex-col gap-2">
-                        <span class="text-[10px] font-black text-brand-accent tracking-[0.4em] uppercase">Análise
-                            Individual</span>
-                        <h3 class="font-black text-brand-primary text-2xl uppercase tracking-tight">Registro Completo
-                        </h3>
-                    </div>
-                    <button onclick="fecharModal()"
-                        class="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center hover:bg-rose-50 hover:text-rose-500 transition-all border border-gray-100 uppercase">
-                        <i class="ph-bold ph-x text-xl"></i>
-                    </button>
+    </div>
+    </main>
+
+    <!-- MODAL DE DETALHES -->
+    <div id="modal-detalhes" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-8 modal-bg">
+        <div
+            class="bg-white w-full max-w-2xl rounded-[4rem] shadow-2xl overflow-hidden page-transition border border-white/20">
+            <div class="p-12 border-b border-gray-50 flex justify-between items-center bg-brand-light/40 text-left">
+                <div class="flex flex-col gap-2">
+                    <span class="text-[10px] font-black text-brand-accent tracking-[0.4em] uppercase">Análise
+                        Individual</span>
+                    <h3 class="font-black text-brand-primary text-2xl uppercase tracking-tight">Registro Completo
+                    </h3>
                 </div>
-                <div class="p-12 space-y-10 text-left" id="modal-content"></div>
-                <div class="px-12 py-10 bg-brand-light flex justify-between items-center">
-                    <p class="text-[9px] font-black text-brand-gray tracking-widest uppercase opacity-60 uppercase">
-                        Cocal
-                        2026</p>
-                    <button onclick="fecharModal()"
-                        class="px-10 py-4 bg-brand-primary text-white font-black text-[11px] tracking-widest rounded-2xl shadow-xl shadow-brand-primary/20 transition-all uppercase">Fechar</button>
-                </div>
+                <button onclick="fecharModal()"
+                    class="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center hover:bg-rose-50 hover:text-rose-500 transition-all border border-gray-100 uppercase">
+                    <i class="ph-bold ph-x text-xl"></i>
+                </button>
+            </div>
+            <div class="p-12 space-y-10 text-left" id="modal-content"></div>
+            <div class="px-12 py-10 bg-brand-light flex justify-between items-center">
+                <p class="text-[9px] font-black text-brand-gray tracking-widest uppercase opacity-60 uppercase">
+                    Cocal
+                    2026</p>
+                <button onclick="fecharModal()"
+                    class="px-10 py-4 bg-brand-primary text-white font-black text-[11px] tracking-widest rounded-2xl shadow-xl shadow-brand-primary/20 transition-all uppercase">Fechar</button>
             </div>
         </div>
+    </div>
 
     </div>
 

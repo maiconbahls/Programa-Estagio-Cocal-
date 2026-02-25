@@ -378,37 +378,48 @@ function mapearColuna(row, prefixos) {
     const keys = Object.keys(row);
     const norm = (s) => String(s || '').toUpperCase().normalize("NFD").replace(/[^A-Z0-9]/g, "");
 
-    // 1. Tenta busca exata primeiro
+    // 1. Tenta busca exata (normalizada) primeiro
     for (let pref of prefixos) {
         const pNorm = norm(pref);
         const match = keys.find(k => norm(k) === pNorm);
         if (match) return row[match];
     }
 
-    // 2. Tenta busca por "contém"
+    // 2. Casos específicos baseados nos nomes reais das planilhas
+    if (prefixos.includes('GESTOR')) {
+        const match = keys.find(k => {
+            const n = norm(k);
+            return n === "GESTOR" || n === "GESTORRESPONSAVEL" || n === "GESTAO";
+        });
+        if (match) return row[match];
+    }
+
+    if (prefixos.includes('CIDADE')) {
+        const match = keys.find(k => norm(k) === "CIDADE" || norm(k) === "CIDADEDEATUACAO");
+        if (match) return row[match];
+    }
+
+    if (prefixos.includes('NASCIMENTO')) {
+        const match = keys.find(k => {
+            const n = norm(k);
+            return n.includes("NASCIMENTO") || n.includes("DATANASC") || n === "NASC";
+        });
+        if (match) return row[match];
+    }
+
+    if (prefixos.includes('LOCAL') || prefixos.includes('SETOR')) {
+        const match = keys.find(k => {
+            const n = norm(k);
+            return n.includes("DESCRICAOLOCAL") || n === "LOCAL" || n === "SETOR";
+        });
+        if (match) return row[match];
+    }
+
+    // 3. Tenta busca por "contém" como última alternativa
     for (let pref of prefixos) {
         const pNorm = norm(pref);
         const match = keys.find(k => norm(k).includes(pNorm));
         if (match) return row[match];
-    }
-
-    // Casos específicos baseados nos prints do usuário
-    if (prefixos.includes('LOCAL') || prefixos.includes('SETOR')) {
-        const m = keys.find(k => {
-            const n = norm(k);
-            return n.includes("DESCRICAOLOCAL") || n.includes("LOCAL") || n.includes("SETOR");
-        });
-        if (m) return row[m];
-    }
-
-    if (prefixos.includes('NASCIMENTO')) {
-        const m = keys.find(k => norm(k).includes("NASCIMENTO") || norm(k).includes("NASC"));
-        if (m) return row[m];
-    }
-
-    if (prefixos.includes('GESTOR')) {
-        const m = keys.find(k => norm(k).includes("GESTOR") || norm(k).includes("GESTAO"));
-        if (m && !norm(m).includes("DIRETORIA")) return row[m];
     }
 
     return '';
@@ -803,20 +814,23 @@ function abrirDashboardIndividual(colaborador) {
     const nome = mapearColuna(colaborador, ['COLABORADOR', 'NOME']) || 'COLABORADOR';
     const mat = mapearColuna(colaborador, ['MATRICULA', 'ID']) || '-';
     const cargo = mapearColuna(colaborador, ['CARGO', 'FUNCAO']) || 'ESTAGIÁRIO';
-    const status = colaborador._tipo || (mapearColuna(colaborador, ['STATUS', 'SITUACAO']) || 'ATIVO');
-    const inicio = formatarDataBR(mapearColuna(colaborador, ['ADMISSAO', 'INICIO']));
+    const status = String(colaborador._tipo || mapearColuna(colaborador, ['STATUS', 'SITUACAO']) || 'ATIVO').toUpperCase();
+    const inicioRaw = mapearColuna(colaborador, ['ADMISSAO', 'INICIO']);
+    const inicio = formatarDataBR(inicioRaw);
     const termino = formatarDataBR(mapearColuna(colaborador, ['TERMINO', 'TÉRMINO', 'FIM', 'CONTRATO']));
 
-    // Dados Complementares (Mapeamento de novas colunas)
+    // Dados Complementares
     const curso = mapearColuna(colaborador, ['CURSO', 'ESCOLARIDADE', 'FORMACAO']) || 'NÃO INFORMADO';
     const bio = mapearColuna(colaborador, ['BIO', 'SOBRE', 'RESUMO']) || 'ESTAGIÁRIO ATIVO DO CICLO 2026. PARTICIPAÇÃO EM PROJETOS DA ÁREA.';
     const nascimentoRaw = mapearColuna(colaborador, ['NASCIMENTO', 'DATA_NASC', 'DATA NASCIMENTO']);
     const nascimento = formatarDataBR(nascimentoRaw);
     const idade = calcularIdade(nascimentoRaw || nascimento);
     const hobbies = mapearColuna(colaborador, ['HOBBIES', 'INTERESSES']) || '-';
-    const foto = mapearColuna(colaborador, ['FOTO', 'URL_FOTO', 'IMAGEM']);
 
-    // Dados Organizacionais (da aba DADOS COMPLEMENTARES)
+    // Foto
+    const foto = mapearColuna(colaborador, ['FOTO', 'URL_FOTO', 'IMAGEM', 'FOTOURL']);
+
+    // Dados Organizacionais (DADOS COMPLEMENTARES)
     const diretoria = mapearColuna(colaborador, ['DIRETORIA']) || '-';
     const unidade = mapearColuna(colaborador, ['UNIDADE']) || '-';
     const localDesc = mapearColuna(colaborador, ['LOCAL', 'SETOR']) || '-';
@@ -827,9 +841,9 @@ function abrirDashboardIndividual(colaborador) {
     const cidadeCompleta = uf ? `${cidade} - ${uf}` : cidade;
 
     // Contatos
-    const email = mapearColuna(colaborador, ['EMAIL', 'CORREIO']) || '#';
+    const email = mapearColuna(colaborador, ['EMAIL', 'CORREIO']) || '';
     const whatsapp = mapearColuna(colaborador, ['WHATSAPP', 'CELULAR', 'TELEFONE']) || '';
-    const linkedin = mapearColuna(colaborador, ['LINKEDIN']) || '#';
+    const linkedin = mapearColuna(colaborador, ['LINKEDIN']) || '';
 
     // Preencher Textos Básicos
     document.getElementById('indiv-nome').innerText = nome;
@@ -838,13 +852,32 @@ function abrirDashboardIndividual(colaborador) {
     document.getElementById('indiv-data-inicio').innerText = inicio;
     document.getElementById('indiv-data-termino').innerText = termino || '-';
 
+    // Status Badge
+    const statusBadge = document.getElementById('indiv-status-badge');
+    if (statusBadge) {
+        statusBadge.innerText = status;
+        statusBadge.className = `px-5 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.2em] mb-4 inline-block ${status.includes('CONCLU') || status.includes('EFETIVA') ? 'bg-brand-accent/10 text-brand-accent' : 'bg-slate-100 text-slate-500'
+            }`;
+    }
+
+    // Tempo de Casa
+    const tempoEl = document.getElementById('indiv-tempo');
+    if (tempoEl) {
+        if (inicioRaw) {
+            const adm = new Date(inicioRaw);
+            const hoje = new Date();
+            const meses = (hoje.getFullYear() - adm.getFullYear()) * 12 + (hoje.getMonth() - adm.getMonth());
+            tempoEl.innerText = `${meses} MESES`;
+        } else {
+            tempoEl.innerText = '0 MESES';
+        }
+    }
+
     // Preencher Dados Complementares
     document.getElementById('indiv-curso').innerText = curso;
     document.getElementById('indiv-bio').innerText = bio;
     document.getElementById('indiv-nascimento').innerText = nascimento || '-';
     document.getElementById('indiv-hobbies').innerText = hobbies;
-
-    // Novos campos organizacionais
     document.getElementById('indiv-diretoria').innerText = diretoria;
     document.getElementById('indiv-unidade').innerText = unidade;
     document.getElementById('indiv-local').innerText = localDesc;
