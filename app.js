@@ -6,7 +6,7 @@ const CONFIG = {
     ROLE_KEY: 'cocal_user_role',
     USER_NAME_KEY: 'cocal_user_name',
     DATE_DISPLAY_ID: 'current-date-display',
-    API_URL: 'https://script.google.com/macros/s/AKfycbzUIWnA3NrbkLAJ6oWuBrOZG-z13ngheh306dbpc7A2S3Xhxi2oDjW_Je4hXTav5INP/exec',
+    API_URL: 'https://script.google.com/macros/s/AKfycbz7id1Jjq4YJNfQa6_Z1I56ipvHhQ3vw0WtCRWHWNNT7Ov-7uKLBNNwyZOIVN5K-Ixl/exec',
     CREDENTIALS: { user: 'gestao', pass: 'Cocal@2025' }
 };
 
@@ -68,9 +68,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function checkAuth() {
-    const isLogged = sessionStorage.getItem(CONFIG.AUTH_KEY);
-    const role = sessionStorage.getItem(CONFIG.ROLE_KEY);
-    const name = sessionStorage.getItem(CONFIG.USER_NAME_KEY);
+    const isLogged = localStorage.getItem(CONFIG.AUTH_KEY);
+    const role = localStorage.getItem(CONFIG.ROLE_KEY);
+    const name = localStorage.getItem(CONFIG.USER_NAME_KEY);
 
     if (isLogged === 'true') {
         document.getElementById('login-screen').classList.add('hidden');
@@ -78,9 +78,12 @@ function checkAuth() {
 
         applyRoleRestrictions(role);
         if (name) {
-            document.querySelector('header .text-sm').innerText = name;
-            document.querySelector('header .text-\[10px\]').innerText = role === 'admin' ? 'Administrador do Programa' : 'Estagiário Cocal';
+            const nameEl = document.querySelector('header .text-sm');
+            if (nameEl) nameEl.innerText = name;
+            const roleEl = document.querySelector('header .text-\[10px\]');
+            if (roleEl) roleEl.innerText = role === 'admin' ? 'Administrador do Programa' : 'Estagiário Cocal';
         }
+        navigateTo('dashboard');
     }
 }
 
@@ -95,47 +98,35 @@ function applyRoleRestrictions(role) {
 
 async function handleLogin(e) {
     e.preventDefault();
-    const user = document.getElementById('login-user').value;
-    const pass = document.getElementById('login-pass').value;
+    const user = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value.trim();
     const btn = e.target.querySelector('button');
-    const errorEl = document.getElementById('login-error');
 
-    // Feedback visual de carregando
+    // Feedback visual imediato
     const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="ph-bold ph-circle-notch animate-spin text-xl"></i> AUTENTICANDO...';
+    btn.innerHTML = '<i class="ph-bold ph-circle-notch animate-spin text-xl"></i>';
     btn.disabled = true;
 
     try {
-        // Primeiro tenta login local para Admin (Fallback se API offline)
+        // Login Admin Local (Instantâneo)
         if (user === CONFIG.CREDENTIALS.user && pass === CONFIG.CREDENTIALS.pass) {
             loginSuccess('admin', 'Maicon Bahls');
             return;
         }
 
-        // Se não for admin local, tenta a API do Google Sheets
-        if (CONFIG.API_URL === 'SUA_URL_DO_APPS_SCRIPT_AQUI') {
-            throw new Error("API_NOT_CONFIGURED");
-        }
-
-        const response = await fetch(CONFIG.API_URL, {
-            method: 'POST',
-            body: JSON.stringify({ user, pass })
-        });
-
+        // Chamada de API otimizada (via GET para evitar pre-flight OPTIONS)
+        const url = `${CONFIG.API_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`;
+        const response = await fetch(url);
         const result = await response.json();
 
         if (result.status === 'success') {
             loginSuccess(result.role, result.name);
         } else {
-            showLoginError("Credenciais Inválidas");
+            showLoginError("Matrícula ou CPF Incorretos");
         }
     } catch (err) {
         console.error("Erro no login:", err);
-        if (err.message === "API_NOT_CONFIGURED") {
-            showLoginError("API Não Configurada");
-        } else {
-            showLoginError("Erro na Conexão");
-        }
+        showLoginError("Erro na Conexão");
     } finally {
         btn.innerHTML = originalText;
         btn.disabled = false;
@@ -143,11 +134,12 @@ async function handleLogin(e) {
 }
 
 function loginSuccess(role, name) {
-    sessionStorage.setItem(CONFIG.AUTH_KEY, 'true');
-    sessionStorage.setItem(CONFIG.ROLE_KEY, role);
-    sessionStorage.setItem(CONFIG.USER_NAME_KEY, name);
+    localStorage.setItem(CONFIG.AUTH_KEY, 'true');
+    localStorage.setItem(CONFIG.ROLE_KEY, role);
+    localStorage.setItem(CONFIG.USER_NAME_KEY, name);
 
-    window.location.reload(); // Recarrega para aplicar as mudanças
+    // Aplica entrada imediata
+    checkAuth();
 }
 
 function showLoginError(msg) {
@@ -160,7 +152,7 @@ function showLoginError(msg) {
 }
 
 function logout() {
-    sessionStorage.clear();
+    localStorage.clear();
     window.location.reload();
 }
 
