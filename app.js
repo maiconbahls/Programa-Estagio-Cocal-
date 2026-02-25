@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarDadosExternos();
     carregarPersistencia();
     carregarDadosComplementares();
+    carregarFeedbacksLocais();
 
     // Listeners
     const uploadEl = document.getElementById('uploadAtividadesCsv');
@@ -168,6 +169,19 @@ function showLoginError(msg) {
 function logout() {
     localStorage.clear();
     window.location.reload();
+}
+
+async function carregarFeedbacksLocais() {
+    try {
+        const response = await fetch('feedbacks.json');
+        if (response.ok) {
+            const data = await response.json();
+            feedbackDB = data;
+            console.log("Feedbacks locais carregados:", feedbackDB.length);
+        }
+    } catch (e) {
+        console.warn("feedbacks.json não encontrado");
+    }
 }
 
 async function carregarDadosExternos() {
