@@ -1,0 +1,16 @@
+# Excel and data files
+BASE/
+*.xlsx
+*.xls
+*.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VBS helper
+visualizar_projeto.vbs
+
+# Local persistence (if any)
+.vercel/
+node_modules/

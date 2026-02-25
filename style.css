@@ -1,0 +1,178 @@
+/* DESIGN SYSTEM - COCAL PROGRAMA DE ESTÁGIO 2026 */
+
+:root {
+    --primary: #30515F;
+    --accent: #76B82A;
+    --light: #F8FAFC;
+    --dark: #0F172A;
+    --gray: #64748B;
+}
+
+body {
+    background-color: var(--light);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(118, 184, 42, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(48, 81, 95, 0.08) 0px, transparent 50%);
+    background-attachment: fixed;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+/* GLASSMORPHISM */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 20px -5px rgba(31, 38, 135, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(31, 38, 135, 0.1);
+}
+
+/* NAVIGATION */
+.nav-active {
+    background: linear-gradient(135deg, #30515f 0%, #1a2f38 100%) !important;
+    color: white !important;
+    box-shadow: 0 10px 25px -5px rgba(48, 81, 95, 0.4);
+}
+
+.hidden-section {
+    display: none;
+}
+
+/* ANIMATIONS */
+.page-transition {
+    animation: fadeInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.98) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+}
+
+/* TIMELINE */
+.timeline-container {
+    position: relative;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), #E2E8F0);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 60px;
+    margin-bottom: 3.5rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 11px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 4px solid white;
+    box-shadow: 0 0 0 2px rgba(118, 184, 42, 0.3);
+    z-index: 10;
+}
+
+/* BADGES */
+.badge-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(118, 184, 42, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(118, 184, 42, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(118, 184, 42, 0);
+    }
+}
+
+/* MODAL */
+.modal-bg {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+}
+
+/* UTILS */
+.bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
