@@ -383,7 +383,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
                         <div
                             class="bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-50 h-[450px] flex flex-col">
                             <h3 class="font-black text-brand-primary text-xs tracking-[0.2em] uppercase mb-10">Volume
@@ -398,6 +398,17 @@
                                 Remetentes</h3>
                             <div class="flex-1 relative">
                                 <canvas id="chartFeedbackRemetente"></canvas>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-100 h-[450px] flex flex-col overflow-hidden">
+                            <h3
+                                class="font-black text-brand-primary text-xs tracking-[0.2em] uppercase mb-10 flex items-center gap-2">
+                                <i class="ph-bold ph-warning-circle text-brand-accent"></i> Pendentes de Feedback
+                            </h3>
+                            <div id="lista-sem-feedback" class="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+                                <p class="text-[10px] font-black text-brand-gray uppercase opacity-50">Carregando
+                                    análise...</p>
                             </div>
                         </div>
                     </div>

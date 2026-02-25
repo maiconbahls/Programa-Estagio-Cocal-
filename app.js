@@ -649,6 +649,40 @@ function renderizarIndicadores() {
     document.getElementById('kpi-feedback-mes').innerText = mesCount;
 
     renderFeedbackCharts(compStats, remStats);
+    renderEstagiariosSemFeedback();
+}
+
+function renderEstagiariosSemFeedback() {
+    const listContainer = document.getElementById('lista-sem-feedback');
+    if (!listContainer) return;
+    listContainer.innerHTML = '';
+
+    const ativos = db;
+    const matriculasComFeedback = new Set(feedbackDB.map(f => String(f.matricula).trim()));
+
+    const semFeedback = ativos.filter(est => !matriculasComFeedback.has(String(est.MATRICULA).trim()));
+
+    if (semFeedback.length === 0) {
+        listContainer.innerHTML = '<p class="text-[10px] font-black text-brand-accent uppercase opacity-50">Todos os estagiários possuem feedback!</p>';
+        return;
+    }
+
+    semFeedback.forEach(est => {
+        const item = document.createElement('div');
+        item.className = "flex items-center gap-4 bg-brand-light/50 p-4 rounded-2xl border border-gray-50 hover:bg-white hover:shadow-md transition-all cursor-pointer group";
+        item.onclick = () => abrirDashboardIndividual(est);
+        item.innerHTML = `
+            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                <i class="ph-bold ph-warning-circle text-brand-accent"></i>
+            </div>
+            <div class="flex-1">
+                <p class="text-[10px] font-black text-brand-primary uppercase truncate">${mapearColuna(est, ['COLABORADOR', 'NOME'])}</p>
+                <p class="text-[8px] font-bold text-brand-gray uppercase opacity-60">Pendente</p>
+            </div>
+            <i class="ph-bold ph-arrow-right text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity"></i>
+        `;
+        listContainer.appendChild(item);
+    });
 }
 
 function renderFeedbackCharts(compStats, remStats) {
