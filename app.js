@@ -3,7 +3,10 @@
 const CONFIG = {
     STORAGE_KEY: 'cocal_metrics_2026',
     AUTH_KEY: 'cocal_auth_session',
+    ROLE_KEY: 'cocal_user_role',
+    USER_NAME_KEY: 'cocal_user_name',
     DATE_DISPLAY_ID: 'current-date-display',
+    API_URL: 'https://script.google.com/macros/s/AKfycbwEg3cfeU3SW6VNn5mKC9bwHMjRnUnYdJEFnaPdA3t5Ph_J-vABjPWDOJJRvkNWDoBY/exec',
     CREDENTIALS: { user: 'gestao', pass: 'Cocal@2025' }
 };
 
@@ -63,30 +66,99 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function checkAuth() {
     const isLogged = sessionStorage.getItem(CONFIG.AUTH_KEY);
+    const role = sessionStorage.getItem(CONFIG.ROLE_KEY);
+    const name = sessionStorage.getItem(CONFIG.USER_NAME_KEY);
+
     if (isLogged === 'true') {
         document.getElementById('login-screen').classList.add('hidden');
         document.getElementById('main-layout').classList.remove('hidden');
+
+        applyRoleRestrictions(role);
+        if (name) {
+            document.querySelector('header .text-sm').innerText = name;
+            document.querySelector('header .text-\[10px\]').innerText = role === 'admin' ? 'Administrador do Programa' : 'Estagiário Cocal';
+        }
     }
 }
 
-function handleLogin(e) {
+function applyRoleRestrictions(role) {
+    const adminElements = document.querySelectorAll('.admin-only');
+    if (role === 'admin') {
+        adminElements.forEach(el => el.classList.remove('hidden'));
+    } else {
+        adminElements.forEach(el => el.classList.add('hidden'));
+    }
+}
+
+async function handleLogin(e) {
     e.preventDefault();
     const user = document.getElementById('login-user').value;
     const pass = document.getElementById('login-pass').value;
+    const btn = e.target.querySelector('button');
     const errorEl = document.getElementById('login-error');
 
-    if (user === CONFIG.CREDENTIALS.user && pass === CONFIG.CREDENTIALS.pass) {
-        sessionStorage.setItem(CONFIG.AUTH_KEY, 'true');
-        document.getElementById('login-screen').classList.add('hidden');
-        document.getElementById('main-layout').classList.remove('hidden');
-        errorEl.classList.add('hidden');
-    } else {
-        errorEl.classList.remove('hidden');
-        // Shake animation for error
-        const form = document.getElementById('login-form');
-        form.classList.add('animate-shake');
-        setTimeout(() => form.classList.remove('animate-shake'), 500);
+    // Feedback visual de carregando
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="ph-bold ph-circle-notch animate-spin text-xl"></i> AUTENTICANDO...';
+    btn.disabled = true;
+
+    try {
+        // Primeiro tenta login local para Admin (Fallback se API offline)
+        if (user === CONFIG.CREDENTIALS.user && pass === CONFIG.CREDENTIALS.pass) {
+            loginSuccess('admin', 'Maicon Bahls');
+            return;
+        }
+
+        // Se não for admin local, tenta a API do Google Sheets
+        if (CONFIG.API_URL === 'SUA_URL_DO_APPS_SCRIPT_AQUI') {
+            throw new Error("API_NOT_CONFIGURED");
+        }
+
+        const response = await fetch(CONFIG.API_URL, {
+            method: 'POST',
+            body: JSON.stringify({ user, pass })
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            loginSuccess(result.role, result.name);
+        } else {
+            showLoginError("Credenciais Inválidas");
+        }
+    } catch (err) {
+        console.error("Erro no login:", err);
+        if (err.message === "API_NOT_CONFIGURED") {
+            showLoginError("API Não Configurada");
+        } else {
+            showLoginError("Erro na Conexão");
+        }
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
     }
+}
+
+function loginSuccess(role, name) {
+    sessionStorage.setItem(CONFIG.AUTH_KEY, 'true');
+    sessionStorage.setItem(CONFIG.ROLE_KEY, role);
+    sessionStorage.setItem(CONFIG.USER_NAME_KEY, name);
+
+    window.location.reload(); // Recarrega para aplicar as mudanças
+}
+
+function showLoginError(msg) {
+    const errorEl = document.getElementById('login-error');
+    errorEl.innerText = msg;
+    errorEl.classList.remove('hidden');
+    const form = document.getElementById('login-form');
+    form.classList.add('animate-shake');
+    setTimeout(() => form.classList.remove('animate-shake'), 500);
+}
+
+function logout() {
+    sessionStorage.clear();
+    window.location.reload();
 }
 
 async function carregarDadosExternos() {
