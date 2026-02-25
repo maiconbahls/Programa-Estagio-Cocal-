@@ -663,10 +663,14 @@ function renderizarListaColaboradores(filtro = '') {
         const card = document.createElement('div');
         card.className = "bg-brand-light/50 p-8 rounded-[2.5rem] border border-gray-100 hover:border-brand-accent/50 hover:bg-white transition-all cursor-pointer group relative overflow-hidden";
         card.onclick = () => abrirDashboardIndividual(item);
+        const fotoPath = `fotos/${nome}.jpg`;
         card.innerHTML = `
             <div class="flex items-center gap-5 mb-6 text-left">
-                <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                    <i class="ph-fill ph-user text-2xl text-brand-primary opacity-40"></i>
+                <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform overflow-hidden">
+                    <img src="${fotoPath}" alt="${nome}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="w-full h-full items-center justify-center hidden">
+                        <i class="ph-fill ph-user text-2xl text-brand-primary opacity-40"></i>
+                    </div>
                 </div>
                 <div class="flex-1 truncate">
                     <h4 class="font-black text-brand-primary text-xs uppercase truncate">${nome}</h4>
@@ -719,17 +723,38 @@ function abrirDashboardIndividual(colaborador) {
     document.getElementById('indiv-nascimento').innerText = nascimento;
     document.getElementById('indiv-hobbies').innerText = hobbies;
 
-    // Foto
+    // Foto - Buscar localmente pela pasta fotos/ usando nome do colaborador
     const imgEl = document.getElementById('indiv-foto');
     const placeholderEl = document.getElementById('indiv-foto-placeholder');
-    if (foto && foto.startsWith('http')) {
-        imgEl.src = foto;
-        imgEl.classList.remove('hidden');
-        placeholderEl.classList.add('hidden');
-    } else {
-        imgEl.classList.add('hidden');
-        placeholderEl.classList.remove('hidden');
-    }
+    const fotoUrl = mapearColuna(colaborador, ['FOTO', 'URL_FOTO', 'IMAGEM']);
+
+    // Tenta primeiro a foto local (fotos/NOME COMPLETO.jpg)
+    const fotoLocal = `fotos/${nome}.jpg`;
+
+    const testarFoto = (url) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = url;
+        });
+    };
+
+    // Testa foto local primeiro, depois URL externa, depois placeholder
+    testarFoto(fotoLocal).then(ok => {
+        if (ok) {
+            imgEl.src = fotoLocal;
+            imgEl.classList.remove('hidden');
+            placeholderEl.classList.add('hidden');
+        } else if (fotoUrl && fotoUrl.startsWith('http')) {
+            imgEl.src = fotoUrl;
+            imgEl.classList.remove('hidden');
+            placeholderEl.classList.add('hidden');
+        } else {
+            imgEl.classList.add('hidden');
+            placeholderEl.classList.remove('hidden');
+        }
+    });
 
     // Links de Contato
     document.getElementById('indiv-email-btn').href = email.includes('@') ? `mailto:${email}` : '#';
