@@ -52,14 +52,19 @@ let chartFeedbackRem = null;
 let db = INITIAL_DATA.ativos;
 let feedbackDB = []; // Base de feedbacks
 
-// INICIALIZAÇÃO
-document.addEventListener('DOMContentLoaded', async () => {
+// INICIALIZAÇÃO ULTRA-RÁPIDA
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Verifica autenticação ANTES de qualquer outra coisa
     checkAuth();
+
+    // 2. Carrega componentes visuais (não-bloqueante)
     initClock();
-    await carregarDadosExternos();
+
+    // 3. Carrega dados em background (sem await)
+    carregarDadosExternos();
     carregarPersistencia();
 
-    // Listeners para Upload e Filtro
+    // Listeners
     const uploadEl = document.getElementById('uploadAtividadesCsv');
     if (uploadEl) uploadEl.addEventListener('change', handleFileUpload);
 
@@ -101,23 +106,25 @@ async function handleLogin(e) {
     const user = document.getElementById('login-user').value.trim();
     const pass = document.getElementById('login-pass').value.trim();
     const btn = e.target.querySelector('button');
-
-    // Feedback visual imediato
     const originalText = btn.innerHTML;
+
     btn.innerHTML = '<i class="ph-bold ph-circle-notch animate-spin text-xl"></i>';
     btn.disabled = true;
 
     try {
-        // Login Admin Local (Instantâneo)
         if (user === CONFIG.CREDENTIALS.user && pass === CONFIG.CREDENTIALS.pass) {
             loginSuccess('admin', 'Maicon Bahls');
             return;
         }
 
-        // Chamada de API otimizada (via GET para evitar pre-flight OPTIONS)
+        // Timeout de 10s para não deixar o usuário esperando eternamente o Google
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
         const url = `${CONFIG.API_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`;
-        const response = await fetch(url);
+        const response = await fetch(url, { signal: controller.signal });
         const result = await response.json();
+        clearTimeout(timeoutId);
 
         if (result.status === 'success') {
             loginSuccess(result.role, result.name);
@@ -126,7 +133,7 @@ async function handleLogin(e) {
         }
     } catch (err) {
         console.error("Erro no login:", err);
-        showLoginError("Erro na Conexão");
+        showLoginError(err.name === 'AbortError' ? "Tempo esgotado (Google Lento)" : "Erro na Conexão");
     } finally {
         btn.innerHTML = originalText;
         btn.disabled = false;
